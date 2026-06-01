@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String
+  accounts  Account[]
+  createdAt DateTime  @default(now())
+}
+
+model Account {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  balance   Float    @default(0)
+  trades    Trade[]
+  createdAt DateTime @default(now())
+}
+
+model Trade {
+  id         String      @id @default(cuid())
+  accountId  String
+  account    Account     @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  ticker     String
+  side       String
+  status     String      @default("CLOSED")
+  netProfit  Float?      @default(0)
+  setup      String?
+  mistakes   String?
+  notes      String?
+  closedAt   DateTime?   @default(now())
+  executions Execution[]
+  createdAt  DateTime    @default(now())
+}
+
+model Execution {
+  id        String   @id @default(cuid())
+  tradeId   String
+  trade     Trade    @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  date      DateTime
+  type      String
+  quantity  Float
+  price     Float
+  fee       Float    @default(0)
+}
