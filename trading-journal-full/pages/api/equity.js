@@ -14,10 +14,10 @@ export default async function handler(req, res) {
   if (!account) return res.status(404).json({ error: "Account not found" });
 
   const trades = await prisma.trade.findMany({
-    where: { accountId, status: "CLOSED" },
+    where: { accountId },
     orderBy: { createdAt: "asc" }
-  });
-
+ });
+  
   let balance = 0;
   const curve = trades.map((trade, index) => {
     balance += trade.netProfit || 0;
