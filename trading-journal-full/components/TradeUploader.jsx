@@ -51,17 +51,17 @@ export default function TradeUploader() {
   }
 
   return (
-    <section className="panel upload-panel">
-      <div className="panel-header">
+    <section className="panel uploader-panel">
+      <div className="panel-title">
         <div>
-          <p className="eyebrow">Import</p>
-          <h2>Upload Webull / CSV Trades</h2>
+          <small>Import</small>
+          <h2>Upload Webull CSV</h2>
         </div>
       </div>
 
-      <div className="upload-box">
+      <div className="uploader-grid">
         <div>
-          <label>Trading Account</label>
+          <label>Account</label>
           <select value={accountId} onChange={e => setAccountId(e.target.value)}>
             {accounts.map(account => (
               <option key={account.id} value={account.id}>{account.name}</option>
@@ -69,13 +69,13 @@ export default function TradeUploader() {
           </select>
         </div>
 
-        <div className="file-drop">
-          <p>Drop your CSV here or choose file</p>
-          <span>Columns supported: ticker, symbol, side, status, PnL, netProfit</span>
+        <div className="drop-zone">
+          <h3>Choose your CSV file</h3>
+          <p>Supports columns like Symbol, Ticker, Side, Status, PnL, Net Profit.</p>
           <input type="file" accept=".csv" onChange={handleFileUpload} disabled={loading} />
         </div>
 
-        {loading && <p className="loading">Importing trades...</p>}
+        {loading && <p className="uploading">Importing trades...</p>}
       </div>
     </section>
   );
