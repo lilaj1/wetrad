@@ -1,4 +1,4 @@
-import { useSession, signOut } from "next-auth/react";
+mport { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Dashboard from "../components/Dashboard";
 import TradeUploader from "../components/TradeUploader";
