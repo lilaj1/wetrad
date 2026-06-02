@@ -1,5 +1,5 @@
 import { getToken } from "next-auth/jwt";
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../lib/prisma";
 
 function clean(value) {
   if (value === undefined || value === null) return "";
