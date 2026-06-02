@@ -35,7 +35,20 @@ export default async function handler(req, res) {
 
     const side = clean(row.side || row.Side || row.type || row.Type || "LONG").toUpperCase();
     const status = clean(row.status || row.Status || "CLOSED").toUpperCase();
-    const netProfit = number(row.netProfit || row.pnl || row.PnL || row.profit || row.Profit, 0);
+    const netProfit = number(
+  row.netProfit ||
+  row.pnl ||
+  row.PnL ||
+  row.profit ||
+  row.Profit ||
+  row["Net Profit"] ||
+  row["Net P&L"] ||
+  row["Realized P&L"] ||
+  row["Realized P/L"] ||
+  row["Profit/Loss"] ||
+  0,
+  0
+);
     const setup = clean(row.setup || row.Setup);
     const mistakes = clean(row.mistakes || row.Mistakes);
     const notes = clean(row.notes || row.Notes);
