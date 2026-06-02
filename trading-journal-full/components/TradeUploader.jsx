@@ -51,21 +51,32 @@ export default function TradeUploader() {
   }
 
   return (
-    <section className="card">
-      <h2>Import Trades CSV</h2>
-      <p>Your CSV should include columns like ticker, side, status, and netProfit.</p>
+    <section className="panel upload-panel">
+      <div className="panel-header">
+        <div>
+          <p className="eyebrow">Import</p>
+          <h2>Upload Webull / CSV Trades</h2>
+        </div>
+      </div>
 
-      <label>Account</label>
-      <select value={accountId} onChange={e => setAccountId(e.target.value)}>
-        {accounts.map(account => (
-          <option key={account.id} value={account.id}>
-            {account.name}
-          </option>
-        ))}
-      </select>
+      <div className="upload-box">
+        <div>
+          <label>Trading Account</label>
+          <select value={accountId} onChange={e => setAccountId(e.target.value)}>
+            {accounts.map(account => (
+              <option key={account.id} value={account.id}>{account.name}</option>
+            ))}
+          </select>
+        </div>
 
-      <input type="file" accept=".csv" onChange={handleFileUpload} disabled={loading} />
-      {loading && <p>Importing...</p>}
+        <div className="file-drop">
+          <p>Drop your CSV here or choose file</p>
+          <span>Columns supported: ticker, symbol, side, status, PnL, netProfit</span>
+          <input type="file" accept=".csv" onChange={handleFileUpload} disabled={loading} />
+        </div>
+
+        {loading && <p className="loading">Importing trades...</p>}
+      </div>
     </section>
   );
 }
